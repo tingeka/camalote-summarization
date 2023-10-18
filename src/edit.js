@@ -13,6 +13,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 
+
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -22,6 +23,7 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
 import './editor.scss';
 
 import { useSelect, useDispatch } from "@wordpress/data";
+import { useState } from "@wordpress/element";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -32,18 +34,56 @@ import { useSelect, useDispatch } from "@wordpress/data";
  * @return {Element} Element to render.
  */
 export default function Edit(
-	{
-		attributes,
-		setAttributes,
-		context: { postType, postId },
-	}
+	// {
+	// 	attributes,
+	// 	setAttributes,
+	// 	context: { postType, postId },
+	// }
+	props
 ) {
+	
+	const [buttonText, setButtonText] = useState('Make API Call');
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+	
+	console.log(props);
+
+	const postContent = useSelect((select) =>
+		select('core/editor').getEditedPostContent()
+	);
+
+	const makeApiCall = async () => {
+		const apiEndpoint = '';
+		setButtonText('Generando resumen');
+		setButtonDisabled(true);
+
+		try {
+			const response = await fetch(apiEndpoint, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(postContent),
+			});
+
+			if (response.ok) {
+				const result = await response.json();
+				setData(result); // Set data in the data store
+			} else {
+				console.error('API request failed:', response);
+			}
+		} catch (error) {
+			console.error('Error making API request:', error);
+		} finally {
+			setButtonText('Make API Call');
+			setButtonDisabled(false);
+		}
+	};
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'summarization-block – hello from the editor!',
-				'camalote-summarization'
-			) }
-		</p>
+		<div>
+			<button onClick={makeApiCall} disabled={buttonDisabled}>
+                {buttonText}
+            </button>
+		</div>
 	);
 }
