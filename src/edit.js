@@ -21,6 +21,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import { useSelect, useDispatch } from "@wordpress/data";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -30,7 +31,13 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit(
+	{
+		attributes,
+		setAttributes,
+		context: { postType, postId },
+	}
+) {
 	return (
 		<p { ...useBlockProps() }>
 			{ __(
