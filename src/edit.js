@@ -83,6 +83,18 @@ export default function Edit(
 			<button onClick={makeApiCall} disabled={buttonDisabled}>
                 {buttonText}
             </button>
+			{data && (
+				<RichText
+				tagName="span"
+				placeholder={ __( 'Author name', 'tutorial' ) }
+				allowedFormats={ [] }
+				disableLineBreaks
+				value={ data }
+				onChange={ ( newData ) =>
+					setAttributes( { data: newData } )
+				}
+			/>
+			)}
 		</div>
 	);
 }
