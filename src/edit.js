@@ -34,19 +34,16 @@ import { useState } from "@wordpress/element";
  * @return {Element} Element to render.
  */
 export default function Edit(
-	// {
-	// 	attributes,
-	// 	setAttributes,
-	// 	context: { postType, postId },
-	// }
-	props
+	{
+		attributes: { data },
+		setAttributes,
+		context: { postType, postId },
+	}
 ) {
 	
 	const [buttonText, setButtonText] = useState('Make API Call');
     const [buttonDisabled, setButtonDisabled] = useState(false);
 	
-	console.log(props);
-
 	const postContent = useSelect((select) =>
 		select('core/editor').getEditedPostContent()
 	);
@@ -67,7 +64,9 @@ export default function Edit(
 
 			if (response.ok) {
 				const result = await response.json();
-				setData(result); // Set data in the data store
+				// setData(result); // Set data in the data store
+				setAttributes( { data: result})
+				console.log( { data } );
 			} else {
 				console.error('API request failed:', response);
 			}
