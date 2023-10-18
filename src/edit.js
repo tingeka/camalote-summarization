@@ -79,7 +79,7 @@ export default function Edit(
 	};
 
 	return (
-		<div>
+		<div {...useBlockProps()}>
 			<button onClick={makeApiCall} disabled={buttonDisabled}>
                 {buttonText}
             </button>
