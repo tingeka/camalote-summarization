@@ -31,3 +31,6 @@ build/
 
 # dotenv environment variables file
 .env
+
+# replacements for BFG
+replacements.txt
