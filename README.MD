@@ -40,7 +40,7 @@ function prefix_custom_field_registration() {
              'schema' => array(
                  'type'  => 'array',
                  'items' => array(
-					 'type' => 'string'
+                    'type' => 'string'
 				),
              ),
          ),
