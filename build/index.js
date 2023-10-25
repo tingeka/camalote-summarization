@@ -419,7 +419,7 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
   \***************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"endpoint":""}');
+module.exports = {"endpoint":""};
 
 /***/ })
 
