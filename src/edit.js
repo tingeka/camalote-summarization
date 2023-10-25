@@ -70,7 +70,7 @@ import {
 /**
  * Imports the API endpoint
  */
-import apiEndpoint from './endpoint.json';
+import definitions from './definitions.json';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -117,7 +117,7 @@ export default function Edit(
 	/* The code is using the `useEntityProp` hook from the `@wordpress/core-data` package to get and update
 	the meta value of a post. */
 	const [ meta, setMeta ] = useEntityProp( 'postType', postType, 'meta' );
-	const metaValue = meta[ 'myguten_meta_block_field'];
+	const metaValue = meta[ definitions.custom_field];
 	
 	/**
 	 * The function `updateMetaValue` updates the value of a meta field called `myguten_meta_block_field`
