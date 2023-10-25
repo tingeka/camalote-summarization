@@ -68,6 +68,11 @@ import {
 } from "./utils.js";
 
 /**
+ * Imports the API endpoint
+ */
+import apiEndpoint from './endpoint.json';
+
+/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -91,7 +96,6 @@ export default function Edit(
 		context: { postType },
 	}
 ) {
-
 	/* These lines of code are using the `useSelect` and `useDispatch` hooks from the `@wordpress/data`
 	package to retrieve and update data from the WordPress editor. */
 	const { getEditedPostContent } = useSelect((select) => select("core/editor"));
@@ -153,9 +157,9 @@ export default function Edit(
 		setUpdatingData(true);
 
 		let body = formatPostContent(postContent, name);
-		let apiEndpoint = '';
+		let endpoint = apiEndpoint.endpoint;
 
-		const response = await makeApiCall(apiEndpoint, body);
+		const response = await makeApiCall(endpoint, body);
 		if (!response.ok) {
 			setButtonText('Intente nuevamente');
 			setButtonDisabled(false);
