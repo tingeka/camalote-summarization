@@ -6,70 +6,66 @@
 import { __ } from '@wordpress/i18n';
 
 /**
- * useBlockProps:
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- * 
- *  @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- * 
- * InnerBlocks:
- * React component to render inner blocks in custom block. 
+ * Imports the useBlockProps and InnerBlocks components from the
+ * @wordpress/block-editor package.
  *
+ * useBlockProps is a React hook that provides props for the block wrapper element.
+ *
+ * InnerBlocks renders the inner block content of a custom block.
  */
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 
 /**
- * Stylesheets
+ * Imports the editor stylesheet.
  *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ * This allows us to style the editor UI for this block.
  */
 import './editor.scss';
 
 /**
- * Hook used to set/get the custom fields from the current post.
+ * Imports the useEntityProp hook from the @wordpress/core-data package.
+ *
+ * This hook allows you to get and set entity properties in the core data store.
  */
 import { useEntityProp } from "@wordpress/core-data";
 
 /**
- * Hooks used for getting the current post content and replacing inner blocks on API call.
- * 
- * useSelect:
- * Custom react hook for retrieving props from registered selectors.
- * 
- * useDispatch:
- * A custom react hook returning the current registry dispatch actions creators.
- * Note: The component using this hook must be within the context of a
- * RegistryProvider.
- * 
+ * Imports the useSelect and useDispatch hooks from the @wordpress/data package.
+ *
+ * useSelect allows you to select data from the store state.
+ *
+ * useDispatch returns the store dispatch method to dispatch actions.
  */
 import { useSelect, useDispatch } from "@wordpress/data";
 
 /**
- * 
- * React hooks
- * 
- * useState:
- * Used for setting button states (text and status), and for setting a state for data being updated.
- * 
- * useEffect:
- * Used for updating meta value based on content updates.
- * 
+ * Imports the useState and useEffect React hooks from the @wordpress/element package.
+ *
+ * useState allows you to add state to a functional component.
+ * useEffect allows you to perform side effects from a function component.
  */
 import { useState, useEffect } from "@wordpress/element";
 
 /**
- * 
- * React hooks
- * 
- * useState:
- * Used for setting button states (text and status), and for setting a state for data being updated.
- * 
- * useEffect:
- * Used for updating meta value based on content updates.
- * 
+ * Imports the createBlocksFromInnerBlocksTemplate utility from
+ * @wordpress/blocks to generate blocks from a template array.
  */
-import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
-import { paragraphTemplate, formatPostContent, getInnerBlocksContent, makeApiCall } from './utils.js';
+import { createBlocksFromInnerBlocksTemplate } from "@wordpress/blocks";
+
+/**
+ * Imports utility functions from the utils.js file:
+ *
+ * paragraphTemplate - Template for paragraph inner blocks.
+ * formatPostContent - Formats post content for API request.
+ * getInnerBlocksContent - Gets inner block HTML content.
+ * makeApiCall - Makes API call to summarization endpoint.
+ */
+import {
+	paragraphTemplate,
+	formatPostContent,
+	getInnerBlocksContent,
+	makeApiCall,
+} from "./utils.js";
 
 /**
  * The edit function describes the structure of your block in the context of the
