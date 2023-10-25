@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "camalote/summarization-block",
+  "version": "0.1.0",
+  "title": "summarization-block",
+  "category": "text",
+  "icon": "smiley",
+  "description": "A block that displays a summary based on Hugging Face Inference API",
+  "example": {},
+  "attributes": {},
+  "supports": {
+    "html": false,
+    "multiple": false
+  },
+  "usesContext": [
+    "postType"
+  ],
+  "textdomain": "camalote-summarization",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
+}
