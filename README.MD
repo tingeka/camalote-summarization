@@ -36,16 +36,16 @@ This plugin doesn't handle custom field registration. It's up to the user to def
 ```php
 function prefix_custom_field_registration() {
     register_meta( 'post', 'prefix_summarization_custom_field', array(
-        'show_in_rest' 	=> array(
-             'schema' => array(
-                 'type'  => 'array',
-                 'items' => array(
-                    'type' => 'string'
-				),
-             ),
-         ),
         'single' 		=> true,
         'type' 			=> 'array',
+        'show_in_rest' 	=> array(
+            'schema' => array(
+                'type'  => 'array',
+                'items' => array(
+                    'type' => 'string'
+                ),
+            ),
+        )
     ) );
 }
 add_action( 'init', 'prefix_custom_field_registration' );
