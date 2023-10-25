@@ -49,3 +49,26 @@ export function getInnerBlocksContent(clientId) {
 export function filterEmptyBlocks ( block ) {
     return block.filter((content) => content !== '');
 };
+
+/**
+ * The function `makeApiCall` is an asynchronous function that makes a POST request to an API endpoint
+ * with a JSON body and returns the response.
+ * @param apiEndpoint - The `apiEndpoint` parameter is the URL of the API endpoint that you want to
+ * make a request to. It specifies the location where the API is hosted and the specific endpoint you
+ * want to interact with.
+ * @param body - The `body` parameter is an object that contains the data you want to send to the API
+ * endpoint. It will be converted to a JSON string using `JSON.stringify()` before being sent in the
+ * request body.
+ * @returns the response object from the API call.
+ */
+export async function makeApiCall(apiEndpoint, body) {
+	const response = await fetch(apiEndpoint, {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify(body),
+	});
+  
+	return response;
+}  

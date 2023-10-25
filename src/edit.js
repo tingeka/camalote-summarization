@@ -69,7 +69,7 @@ import { useState, useEffect } from "@wordpress/element";
  * 
  */
 import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
-import { paragraphTemplate, formatPostContent, getInnerBlocksContent } from './utils.js';
+import { paragraphTemplate, formatPostContent, getInnerBlocksContent, makeApiCall } from './utils.js';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -144,53 +144,44 @@ export default function Edit(
 	  }
 	}, [updatingData, innerBlocksContent])
 	
-
 	/**
-	 * The function `makeApiCall` makes an API call to a specified endpoint, updates the button text and
-	 * disables the button while the API call is being made, and handles the response by updating meta
-	 * values and replacing inner blocks with new blocks created from a template. Finally, it resets the
-	 * button text, enables the button, and sets the updating data flag to false.
+	 * The function `handleApiCall` is used to make an API call, update the meta value, and replace inner
+	 * blocks with new content.
+	 * @returns The function `handleApiCall` does not have a return statement, so it does not explicitly
+	 * return anything.
 	 */
-	const makeApiCall = async () => {
-		const apiEndpoint = '';
+	const handleApiCall = async () => {
+
 		setButtonText('Generando resumen');
 		setButtonDisabled(true);
-		setUpdatingData(true); 
-		try {
-			const response = await fetch(apiEndpoint, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify( formatPostContent( postContent, name ) ),
-			});
+		setUpdatingData(true);
 
-			if (response.ok) {
-				const result = await response.json();
-				updateMetaValue( result );
-				replaceInnerBlocks(
-					clientId,
-				 	createBlocksFromInnerBlocksTemplate( 
-						paragraphTemplate( result )
-					)
-				);
-			} else {
-				console.error('API request failed:', response);
-			}
-		} catch (error) {
-			console.error('Error making API request:', error);
-		} finally {
-			setButtonText('Regenerar resumen');
+		let body = formatPostContent(postContent, name);
+		let apiEndpoint = '';
+
+		const response = await makeApiCall(apiEndpoint, body);
+		if (!response.ok) {
+			setButtonText('Intente nuevamente');
 			setButtonDisabled(false);
-			setUpdatingData(false);
+			return console.error('API request failed', response)
 		}
-	};
+		let result = await response.json();
+		updateMetaValue( result );
+		replaceInnerBlocks(
+			clientId,
+			createBlocksFromInnerBlocksTemplate(paragraphTemplate( result ) )
+		);
+	  
+		setButtonText( 'Regenerar resumen' );
+		setButtonDisabled( false );
+		setUpdatingData( false );
+	}
 
 	/* The `return` statement is returning the JSX code that will be rendered in the editor for this
 	block. */
 	return (
 		<div {...useBlockProps()}>
-			<button onClick={makeApiCall} disabled={buttonDisabled}>
+			<button onClick={handleApiCall} disabled={buttonDisabled}>
                 {buttonText}
             </button>
 			{ metaValue
