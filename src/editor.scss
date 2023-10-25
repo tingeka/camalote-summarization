@@ -4,11 +4,12 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-camalote-camalote-summarization {
-	border: 1px dotted #f00;
+.wp-block-camalote-summarization-block {
+	padding:1rem;
+	background: #f3bdbd;
 }
 
-.wp-block-camalote-camalote-summarization p[data-type="core/paragraph"] {
+.wp-block-camalote-summarization-block p[data-type="core/paragraph"] {
 	display:list-item;
 	margin: 32px;
 }
