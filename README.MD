@@ -1,3 +1,4 @@
+![Cover](./cover.png)
 # Camalote - Summarization block
 ## Intro
 This block is used to summarize the post content using an API endpoint. It can be used with any API endpoint that returns a summary of the content as an array.
